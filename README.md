@@ -1,6 +1,10 @@
 # ForexProjectMessageBroker
-#### External services for ForeignExchangePlatform connected via RabbitMQ Message Broker
+#### External service for ForeignExchangePlatform connected via RabbitMQ Message Broker
 
-Current services:
-* Sending quotations from Forex Platform via plain message broker queue
+[![Build Status](https://travis-ci.com/mlipski00/ForexProjectMessageBroker.svg?branch=master)](https://travis-ci.com/mlipski00/ForexProjectMessageBroker)
+
+Internal subservices:
+* Sending quotations from Forex Platform via simple message broker queue
 * Sending quotations via remote procedure call (RPC)
+
+Data is save to embedded mongoDB.
