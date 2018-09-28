@@ -1,15 +1,21 @@
 package pl.messageBroker.messageBrokerReciver;
 
 import com.rabbitmq.client.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.messageBroker.service.QuotationService;
 
 import java.io.IOException;
 
+@Component
 public class QuotationReciverRabbitMQ {
+
+    @Autowired
+    private QuotationService quotationService;
 
     private final static String QUEUE_NAME = "simple_queue";
 
-    public static void run() throws Exception {
+    public void run() throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         factory.setPort(5672);
@@ -25,6 +31,7 @@ public class QuotationReciverRabbitMQ {
                     throws IOException {
                 String message = new String(body, "UTF-8");
                 System.out.println(" [x] Received '" + message + "'");
+                quotationService.saveQuotationFromQueue(message);
             }
         };
         channel.basicConsume(QUEUE_NAME, true, consumer);

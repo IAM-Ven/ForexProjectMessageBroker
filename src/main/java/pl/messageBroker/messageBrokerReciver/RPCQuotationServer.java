@@ -7,17 +7,24 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Envelope;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import pl.messageBroker.service.QuotationService;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+@Component
 public class RPCQuotationServer {
+
+    @Autowired
+    private QuotationService quotationService;
 
     private static final String RPC_QUEUE_NAME = "rpc_queue";
 
     private static final String FIXED_RESPONSE = "Quotation recived correctly";
 
-    public static void run() {
+    public void run() {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
 
@@ -34,6 +41,7 @@ public class RPCQuotationServer {
             System.out.println(" [x] RPC_QUEUE_NAME: " + RPC_QUEUE_NAME + ". Awaiting RPC requests");
 
             Consumer consumer = new DefaultConsumer(channel) {
+
                 @Override
                 public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                     AMQP.BasicProperties replyProps = new AMQP.BasicProperties
@@ -46,6 +54,7 @@ public class RPCQuotationServer {
                     try {
                         String message = new String(body,"UTF-8");
                         System.out.println(" [.] recived qutotation (" + message + ")");
+                        quotationService.saveQuotationFromQueue(message);
                         response = FIXED_RESPONSE;
                     }
                     catch (RuntimeException e){
