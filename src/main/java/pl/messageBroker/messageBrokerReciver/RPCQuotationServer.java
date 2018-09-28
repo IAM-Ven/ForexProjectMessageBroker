@@ -1,4 +1,4 @@
-package messageBrokerReciver;
+package pl.messageBroker.messageBrokerReciver;
 
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
@@ -17,7 +17,7 @@ public class RPCQuotationServer {
 
     private static final String FIXED_RESPONSE = "Quotation recived correctly";
 
-    public static void main(String[] argv) {
+    public static void run() {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
 
@@ -31,7 +31,7 @@ public class RPCQuotationServer {
 
             channel.basicQos(1);
 
-            System.out.println(" [x] Awaiting RPC requests");
+            System.out.println(" [x] RPC_QUEUE_NAME: " + RPC_QUEUE_NAME + ". Awaiting RPC requests");
 
             Consumer consumer = new DefaultConsumer(channel) {
                 @Override

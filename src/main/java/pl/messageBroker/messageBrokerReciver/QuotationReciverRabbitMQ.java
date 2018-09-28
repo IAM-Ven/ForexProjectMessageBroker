@@ -1,6 +1,7 @@
-package messageBrokerReciver;
+package pl.messageBroker.messageBrokerReciver;
 
 import com.rabbitmq.client.*;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
@@ -8,7 +9,7 @@ public class QuotationReciverRabbitMQ {
 
     private final static String QUEUE_NAME = "simple_queue";
 
-    public static void main(String[] argv) throws Exception {
+    public static void run() throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         factory.setPort(5672);
@@ -16,7 +17,7 @@ public class QuotationReciverRabbitMQ {
         Channel channel = connection.createChannel();
 
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+        System.out.println(" [x] QUEUE_NAME: "+ QUEUE_NAME + ". Waiting for messages.");
 
         Consumer consumer = new DefaultConsumer(channel) {
             @Override
