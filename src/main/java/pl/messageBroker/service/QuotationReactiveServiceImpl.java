@@ -2,7 +2,7 @@ package pl.messageBroker.service;
 
 import org.springframework.stereotype.Service;
 import pl.messageBroker.model.Quotation;
-import pl.messageBroker.reactiveRepository.QuotationReactiveRepository;
+import pl.messageBroker.repository.QuotationReactiveRepository;
 import reactor.core.publisher.Mono;
 
 
@@ -22,7 +22,8 @@ public class QuotationReactiveServiceImpl implements QuotationReactiveService {
     }
 
     @Override
-    public void saveQuotationFromQueue(String quotationBody) {
-        quotationReactiveRepository.save(new Quotation(quotationBody));
+    public Mono<Quotation>  saveQuotationFromQueue(String quotationBody) {
+        Quotation savedQuotation = quotationReactiveRepository.save(new Quotation(quotationBody)).block();
+        return Mono.just(savedQuotation);
     }
 }

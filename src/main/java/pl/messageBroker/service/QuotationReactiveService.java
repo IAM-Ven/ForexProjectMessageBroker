@@ -7,5 +7,5 @@ public interface QuotationReactiveService {
 
     Mono<Quotation> saveQuotation(Quotation quotation);
 
-    void saveQuotationFromQueue(String quotationBody);
+    Mono<Quotation> saveQuotationFromQueue(String quotationBody);
 }
