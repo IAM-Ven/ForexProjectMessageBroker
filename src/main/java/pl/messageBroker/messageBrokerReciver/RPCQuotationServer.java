@@ -1,15 +1,9 @@
 package pl.messageBroker.messageBrokerReciver;
 
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Consumer;
-import com.rabbitmq.client.DefaultConsumer;
-import com.rabbitmq.client.AMQP;
-import com.rabbitmq.client.Envelope;
+import com.rabbitmq.client.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pl.messageBroker.service.QuotationService;
+import pl.messageBroker.service.QuotationReactiveService;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -18,7 +12,7 @@ import java.util.concurrent.TimeoutException;
 public class RPCQuotationServer {
 
     @Autowired
-    private QuotationService quotationService;
+    private QuotationReactiveService quotationReactiveService;
 
     private static final String RPC_QUEUE_NAME = "rpc_queue";
 
@@ -54,7 +48,7 @@ public class RPCQuotationServer {
                     try {
                         String message = new String(body,"UTF-8");
                         System.out.println(" [.] recived qutotation (" + message + ")");
-                        quotationService.saveQuotationFromQueue(message);
+                        quotationReactiveService.saveQuotationFromQueue(message);
                         response = FIXED_RESPONSE;
                     }
                     catch (RuntimeException e){

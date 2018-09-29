@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 import pl.messageBroker.messageBrokerReciver.QuotationReciverRabbitMQ;
 import pl.messageBroker.messageBrokerReciver.RPCQuotationServer;
 import pl.messageBroker.model.Quotation;
-import pl.messageBroker.service.QuotationService;
+import pl.messageBroker.service.QuotationReactiveService;
 
 @Component
 public class ApplicationBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
-    private QuotationService quotationService;
+    private QuotationReactiveService quotationReactiveService;
 
     @Autowired
     private RPCQuotationServer rpcQuotationServer;
@@ -34,6 +34,6 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
     }
 
     private void initData() {
-        quotationService.saveQuotation(new Quotation("test quote"));
+        quotationReactiveService.saveQuotation(new Quotation("test quote"));
     }
 }
