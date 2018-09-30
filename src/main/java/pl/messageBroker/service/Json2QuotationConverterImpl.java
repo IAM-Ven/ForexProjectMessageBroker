@@ -22,14 +22,12 @@ public class Json2QuotationConverterImpl implements Json2QuotationConverter {
     public List<Quotation> Json2QuotationConvert(String quotationBody) {
         List<Quotation> quotationList = new ArrayList<Quotation>();
         try {
-            // Convert JSON string to Object
-//            quotationBody = "{\"name\":\"mkyong\",\"salary\":7500,\"skills\":[\"java\",\"python\"]}";
             quotationList = objectMapper.readValue(quotationBody, new TypeReference<List<Quotation>>(){});
             System.out.println("converter message to list object: " + quotationList);
 
             //Pretty print
-            String prettyStaff1 = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(quotationList);
-            System.out.println("PRETTY: converter message to list object: " + prettyStaff1);
+            String prettyQuotationList = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(quotationList);
+            System.out.println("PRETTY: converter message to list object: " + prettyQuotationList);
 
         } catch (JsonGenerationException e) {
             e.printStackTrace();
