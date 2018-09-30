@@ -6,7 +6,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pl.messageBroker.service.QuotationService;
 
-public class QuotationReciverRabbitMQTest {
+public class StringQuotationReciverRabbitMQTest {
 
     @Mock
     QuotationService quotationService;

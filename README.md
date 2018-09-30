@@ -8,6 +8,6 @@
 
 Internal subservices:
 * Receiving quotations from Forex Platform via simple message broker queue
-* Receiving quotations via remote procedure call (RPC)
+* Receiving quotations via remote procedure call (RCP)
 
 Data is save to embedded mongoDB.

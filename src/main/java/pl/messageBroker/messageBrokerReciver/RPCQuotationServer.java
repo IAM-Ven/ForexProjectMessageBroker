@@ -3,6 +3,7 @@ package pl.messageBroker.messageBrokerReciver;
 import com.rabbitmq.client.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.messageBroker.service.Json2QuotationConverter;
 import pl.messageBroker.service.QuotationReactiveService;
 
 import java.io.IOException;
@@ -14,9 +15,12 @@ public class RPCQuotationServer {
     @Autowired
     private QuotationReactiveService quotationReactiveService;
 
-    private static final String RPC_QUEUE_NAME = "rpc_queue";
+    @Autowired
+    private Json2QuotationConverter json2QuotationConverter;
 
-    private static final String FIXED_RESPONSE = "Quotation recived correctly";
+    private static final String RPC_QUEUE_NAME = "rcp_queue";
+
+    private static final String FIXED_RESPONSE = "StringQuotation recived correctly";
 
     public void run() {
         ConnectionFactory factory = new ConnectionFactory();
@@ -46,9 +50,10 @@ public class RPCQuotationServer {
                     String response = "";
 
                     try {
-                        String message = new String(body,"UTF-8");
-                        System.out.println(" [.] recived qutotation (" + message + ")");
-                        quotationReactiveService.saveQuotationFromQueue(message);
+                        String recivedQuotationMessage = new String(body,"UTF-8");
+                        System.out.println(" [.] recived qutotation (" + recivedQuotationMessage + ")");
+                        quotationReactiveService.saveQuotationFromQueue(recivedQuotationMessage);
+                        json2QuotationConverter.Json2QuotationConvert(recivedQuotationMessage);
                         response = FIXED_RESPONSE;
                     }
                     catch (RuntimeException e){

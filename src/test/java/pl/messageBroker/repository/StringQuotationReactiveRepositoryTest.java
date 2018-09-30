@@ -6,13 +6,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import pl.messageBroker.model.Quotation;
+import pl.messageBroker.model.StringQuotation.StringQuotation;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @DataMongoTest
-public class QuotationReactiveRepositoryTest {
+public class StringQuotationReactiveRepositoryTest {
 
     @Autowired
     QuotationReactiveRepository quotationReactiveRepository;
@@ -24,10 +24,10 @@ public class QuotationReactiveRepositoryTest {
 
     @Test
     public void testSave() throws Exception {
-        Quotation quotation = new Quotation();
-        quotation.setQuotationBody("Foo");
+        StringQuotation stringQuotation = new StringQuotation();
+        stringQuotation.setQuotationBody("Foo");
 
-        quotationReactiveRepository.save(quotation).block();
+        quotationReactiveRepository.save(stringQuotation).block();
 
         Long count = quotationReactiveRepository.count().block();
 

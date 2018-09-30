@@ -6,7 +6,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import pl.messageBroker.messageBrokerReciver.QuotationReciverRabbitMQ;
 import pl.messageBroker.messageBrokerReciver.RPCQuotationServer;
-import pl.messageBroker.model.Quotation;
+import pl.messageBroker.model.StringQuotation.StringQuotation;
 import pl.messageBroker.service.QuotationReactiveService;
 
 @Component
@@ -34,6 +34,6 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
     }
 
     private void initData() {
-        quotationReactiveService.saveQuotation(new Quotation("test quote"));
+        quotationReactiveService.saveQuotation(new StringQuotation("test quote"));
     }
 }

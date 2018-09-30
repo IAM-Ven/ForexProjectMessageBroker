@@ -1,11 +1,11 @@
 package pl.messageBroker.service;
 
-import pl.messageBroker.model.Quotation;
+import pl.messageBroker.model.StringQuotation.StringQuotation;
 import reactor.core.publisher.Mono;
 
 public interface QuotationReactiveService {
 
-    Mono<Quotation> saveQuotation(Quotation quotation);
+    Mono<StringQuotation> saveQuotation(StringQuotation stringQuotation);
 
-    Mono<Quotation> saveQuotationFromQueue(String quotationBody);
+    Mono<StringQuotation> saveQuotationFromQueue(String quotationBody);
 }
