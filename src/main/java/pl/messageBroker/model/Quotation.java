@@ -1,6 +1,8 @@
 package pl.messageBroker.model;
 
 import com.fasterxml.jackson.annotation.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +16,11 @@ import java.util.Map;
         "bidPriceBucket",
         "askPriceBucket"
 })
+@Document
 public class Quotation {
+
+    @Id
+    private String documentId;
 
     @JsonProperty("id")
     private Integer id;
@@ -101,4 +107,24 @@ public class Quotation {
         this.additionalProperties.put(name, value);
     }
 
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
+
+    @Override
+    public String toString() {
+        return "Quotation{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", instrument=" + instrument +
+                ", bidPriceBucket=" + bidPriceBucket +
+                ", askPriceBucket=" + askPriceBucket +
+                ", additionalProperties=" + additionalProperties +
+                '}';
+    }
 }

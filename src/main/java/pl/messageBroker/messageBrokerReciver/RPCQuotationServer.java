@@ -18,7 +18,7 @@ public class RPCQuotationServer {
     @Autowired
     private Json2QuotationConverter json2QuotationConverter;
 
-    private static final String RPC_QUEUE_NAME = "rcp_queue";
+    private static final String RPC_QUEUE_NAME = "rpc_queue";
 
     private static final String FIXED_RESPONSE = "StringQuotation recived correctly";
 
@@ -52,8 +52,8 @@ public class RPCQuotationServer {
                     try {
                         String recivedQuotationMessage = new String(body,"UTF-8");
                         System.out.println(" [.] recived qutotation (" + recivedQuotationMessage + ")");
-                        quotationReactiveService.saveQuotationFromQueue(recivedQuotationMessage);
-                        json2QuotationConverter.Json2QuotationConvert(recivedQuotationMessage);
+//                        quotationReactiveService.saveStringQuotationFromQueue(recivedQuotationMessage);
+                        quotationReactiveService.saveQuotationObjectFromQueue(json2QuotationConverter.Json2QuotationConvert(recivedQuotationMessage));
                         response = FIXED_RESPONSE;
                     }
                     catch (RuntimeException e){

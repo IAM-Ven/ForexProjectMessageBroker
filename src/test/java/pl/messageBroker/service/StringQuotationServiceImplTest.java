@@ -6,6 +6,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pl.messageBroker.model.StringQuotation.StringQuotation;
 import pl.messageBroker.repository.QuotationReactiveRepository;
+import pl.messageBroker.repository.StringQuotationReactiveRepository;
 import reactor.core.publisher.Mono;
 
 import static org.junit.Assert.assertEquals;
@@ -13,6 +14,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class StringQuotationServiceImplTest {
+
+    @Mock
+    StringQuotationReactiveRepository stringQuotationReactiveRepository;
 
     @Mock
     QuotationReactiveRepository quotationReactiveRepository;
@@ -23,7 +27,7 @@ public class StringQuotationServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        quotationReactiveService = new QuotationReactiveServiceImpl(quotationReactiveRepository);
+        quotationReactiveService = new QuotationReactiveServiceImpl(stringQuotationReactiveRepository, quotationReactiveRepository);
     }
 
     @Test
@@ -34,12 +38,12 @@ public class StringQuotationServiceImplTest {
         stringQuotation.setQuotationBody("Foo");
 
         //when
-        when(quotationReactiveRepository.save(any())).thenReturn(Mono.just(stringQuotation));
-        StringQuotation savedStringQuotation = quotationReactiveService.saveQuotation(stringQuotation).block();
+        when(stringQuotationReactiveRepository.save(any())).thenReturn(Mono.just(stringQuotation));
+        StringQuotation savedStringQuotation = quotationReactiveService.saveStringQuotation(stringQuotation).block();
 
         //then
         assertEquals("1", savedStringQuotation.getId());
-        verify(quotationReactiveRepository, times(1)).save(any(StringQuotation.class));
+        verify(stringQuotationReactiveRepository, times(1)).save(any(StringQuotation.class));
     }
 
     @Test
@@ -50,12 +54,12 @@ public class StringQuotationServiceImplTest {
         stringQuotation.setId("1");
 
         //when
-        when(quotationReactiveRepository.save(any())).thenReturn(Mono.just(stringQuotation));
-        StringQuotation savedStringQuotation = quotationReactiveService.saveQuotationFromQueue(quotationBody).block();
+        when(stringQuotationReactiveRepository.save(any())).thenReturn(Mono.just(stringQuotation));
+        StringQuotation savedStringQuotation = quotationReactiveService.saveStringQuotationFromQueue(quotationBody).block();
 
         //then
         assertEquals("1", savedStringQuotation.getId());
-        verify(quotationReactiveRepository, times(1)).save(any(StringQuotation.class));
+        verify(stringQuotationReactiveRepository, times(1)).save(any(StringQuotation.class));
 
     }
 }

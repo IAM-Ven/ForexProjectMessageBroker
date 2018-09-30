@@ -33,7 +33,7 @@ public class QuotationReciverRabbitMQ {
                     throws IOException {
                 String message = new String(body, "UTF-8");
                 System.out.println(" [x] Received '" + message + "'");
-                quotationService.saveQuotationFromQueue(message);
+                quotationService.saveQuotationStringFromQueue(message);
             }
         };
         channel.basicConsume(QUEUE_NAME, true, consumer);

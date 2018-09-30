@@ -34,6 +34,6 @@ public class ApplicationBootstrap implements ApplicationListener<ContextRefreshe
     }
 
     private void initData() {
-        quotationReactiveService.saveQuotation(new StringQuotation("test quote"));
+        quotationReactiveService.saveStringQuotation(new StringQuotation("test quote"));
     }
 }

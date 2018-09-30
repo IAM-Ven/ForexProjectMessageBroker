@@ -100,4 +100,18 @@ public class QuotationTest {
         quotation.setAskPriceBucket(askPriceBucket);
         assertEquals(askPriceBucket, quotation.getAskPriceBucket());
     }
+
+    @Test
+    public void getDocumentId() {
+        String idValue = "1";
+        quotation.setDocumentId(idValue);
+        assertEquals(idValue, quotation.getDocumentId());
+    }
+
+    @Test
+    public void setDocumentId() {
+        String idValue = "1";
+        quotation.setDocumentId(idValue);
+        assertEquals(idValue, quotation.getDocumentId());
+    }
 }

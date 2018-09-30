@@ -12,14 +12,14 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @DataMongoTest
-public class StringQuotationReactiveRepositoryTest {
+public class StringStringQuotationReactiveRepositoryTest {
 
     @Autowired
-    QuotationReactiveRepository quotationReactiveRepository;
+    StringQuotationReactiveRepository stringQuotationReactiveRepository;
 
     @Before
     public void setUp() throws Exception {
-        quotationReactiveRepository.deleteAll().block();
+        stringQuotationReactiveRepository.deleteAll().block();
     }
 
     @Test
@@ -27,9 +27,9 @@ public class StringQuotationReactiveRepositoryTest {
         StringQuotation stringQuotation = new StringQuotation();
         stringQuotation.setQuotationBody("Foo");
 
-        quotationReactiveRepository.save(stringQuotation).block();
+        stringQuotationReactiveRepository.save(stringQuotation).block();
 
-        Long count = quotationReactiveRepository.count().block();
+        Long count = stringQuotationReactiveRepository.count().block();
 
         assertEquals(Long.valueOf(1L), count);
     }

@@ -6,5 +6,5 @@ public interface QuotationService {
 
     void saveQuotation(StringQuotation stringQuotation);
 
-    void saveQuotationFromQueue(String quotationBody);
+    void saveQuotationStringFromQueue(String quotationBody);
 }
