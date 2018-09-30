@@ -2,10 +2,13 @@ package pl.messageBroker.model;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
 import pl.messageBroker.model.StringQuotation.StringQuotation;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(SpringRunner.class)
 public class StringQuotationTest {
 
     StringQuotation stringQuotation;
@@ -31,6 +34,5 @@ public class StringQuotationTest {
         stringQuotation.setQuotationBody(quotationBody);
 
         assertEquals(quotationBody, stringQuotation.getQuotationBody());
-
     }
 }
